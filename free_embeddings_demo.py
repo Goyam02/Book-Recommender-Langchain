@@ -54,7 +54,7 @@ class HuggingFaceEmbeddings:
 
 class LocalEmbeddings:
     """Completely free local embeddings using sentence-transformers"""
-    
+
     def __init__(self, model_name="all-MiniLM-L6-v2"):
         try:
             from sentence_transformers import SentenceTransformer
@@ -63,10 +63,13 @@ class LocalEmbeddings:
         except ImportError:
             print("sentence-transformers not installed. Run: pip install sentence-transformers")
             raise
-    
+
     def embed_text(self, text: str) -> List[float]:
         """Embed text using local model"""
         return self.model.encode([text]).tolist()[0]
+    def embed_documents(self, texts: List[str]) -> List[List[float]]:
+        """Embed a list of documents"""
+        return self.model.encode(texts).tolist()
 
 def cosine_similarity(vec1: List[float], vec2: List[float]) -> float:
     """Calculate cosine similarity between two vectors"""
