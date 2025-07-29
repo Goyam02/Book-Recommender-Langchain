@@ -71,6 +71,10 @@ class LocalEmbeddings:
         """Embed a list of documents"""
         return self.model.encode(texts).tolist()
 
+    def embed_query(self, text: str) -> List[float]:
+        return self.model.encode([text])[0].tolist()
+
+
 def cosine_similarity(vec1: List[float], vec2: List[float]) -> float:
     """Calculate cosine similarity between two vectors"""
     vec1 = np.array(vec1)
